@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "写日记",
+  "usingComponents": {
+    "van-icon": "../../dist/icon/index"
+  }
+}

@@ -1,0 +1,91 @@
+/* pages/mine/mine.wxss */
+.mcontainer{
+  height: 100%;
+  display: flex; 
+  flex-direction: column;
+   align-items: center; 
+  justify-content: space-between;
+}
+
+.item{
+  flex-grow: 1;
+  height: 30%;
+  overflow: hidden; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding:0 2;
+}
+
+.image{
+  width:100px;
+  height: 120px;
+}
+
+.login-item{
+  width: 90%;
+  margin-top: 30rpx;
+  border-bottom: 1px solid cadetblue;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 20rpx
+}
+
+.bottom{
+  border-bottom: 10px;
+}
+
+.login-item-info{
+  font-size: 15px;
+  color:navy;
+  padding-bottom: 20rpx;
+}
+
+.login-pwd{
+  display:flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.login-pwd text{
+  height: 100%;
+  font-size: 14px;
+  color:black;
+  display: flex;
+}
+
+.login-btn{
+  display: flex;
+  flex-grow: 1;
+  
+  width: 60%;
+  color:black;
+  background-color:white;
+  border-radius: 3; 
+  font-size: 20px;
+  font-display: center;
+  margin: 60rpx;
+}
+
+ .login-btn:hover{
+  width:60%;
+  background-color: green;
+  border-radius: 0; 
+} 
+
+.bottom-info{
+  font-size: 15px;
+  color:navy;
+  width:50%;
+
+}
+.wechat-icon{
+  width:50%;
+}
+
+

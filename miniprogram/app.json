@@ -1,0 +1,34 @@
+{
+  "pages": [
+    "pages/diary/diary",
+    "pages/user/user",
+    "pages/edit/edit",
+    "pages/mine/mine/mine"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#000080",
+    "navigationBarTitleText": "共享日记",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/icon/diary_1.png",
+        "iconPath": "images/icon/diary.png",
+        "pagePath": "pages/diary/diary",
+        "text": "日记"
+      },
+      {
+        "selectedIconPath": "images/icon/user_1.png",
+        "iconPath": "images/icon/user.png",
+        "pagePath": "pages/user/user",
+        "text": "用户"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

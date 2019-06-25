@@ -1,0 +1,64 @@
+<view >
+    <textarea
+	 class='input_view'
+	 maxlength='20'
+	 auto-height='true'
+
+
+	 placeholder='标题'
+	 focus='{{focusList[0].focus}}'
+	 
+	 style='width:{{width-20}}px;'
+	 data-index='0'
+	/>
+</view>
+<view>
+	<textarea
+	 wx:if="{{isEdit}}"
+	 class='input_view'
+	 maxlength='-1'
+	 auto-height='true'
+	 bindinput='_inputCon'
+	 value='{{firstCon}}'
+	 placeholder='正文'
+	 focus='{{focusList[0].focus}}'
+	 bindblur="_outBlur"
+	 style='width:{{width-20}}px;'
+	 data-index='0'
+	/>
+	<view wx:if="{{!isEdit}}" bindtap='_focusView' class='input_view2 text-gray' data-index='0'>{{firstCon||"正文"}}</view>
+    <view wx:for="{{dataList}}" wx:key="{{index}}">
+        <view class='img_view' style='height:{{width/2}}px;'>
+            <image src='{{item.img}}' mode='aspectFill' />
+            <van-icon bindtap='_deletedImg' data-index='{{index}}' name='cross' class='close_img'/>
+        </view>
+        <textarea 
+        wx:if="{{isEdit}}" 
+        class='input_view' 
+        maxlength='-1' 
+        auto-height='true' 
+        bindinput='_inputCon' 
+        value='{{item.info}}' 
+        placeholder='正文' 
+        focus='{{focusList[index+1].focus}}' 
+        bindblur="_outBlur" 
+        style='width:{{width-20}}px;'
+        data-index='{{index+1}}' />
+        <view 
+        wx:if="{{!isEdit}}" 
+        bindtap='_focusView' 
+        class='input_view2 text-gray' 
+        data-index='{{index+1}}'>{{item.info||'正文'}}</view>
+    </view>
+</view>
+<view class='add-img'>
+  <view class='circle_center_view' style="bottom: 80rpx; right: 240rpx;" bindtap='_addImg'>
+      <image class='upload_image' src='../../images/icon/camera.png'/>
+  </view>
+</view>
+<view class='save'>
+  <view class='circle_center_view' style="bottom: 80rpx; right: 80rpx;" bindtap='_saveRichText'>
+       <image class='upload_image' src='../../images/icon/save.png'/>
+  </view>
+</view>
+
