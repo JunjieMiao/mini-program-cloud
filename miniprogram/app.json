@@ -1,9 +1,10 @@
 {
   "pages": [
-    "pages/diary/diary",
+    "pages/menu/menu",
     "pages/user/user",
     "pages/edit/edit",
-    "pages/mine/mine/mine"
+    "pages/mine/mine/mine",
+    "pages/diary/diary"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -19,7 +20,7 @@
       {
         "selectedIconPath": "images/icon/diary_1.png",
         "iconPath": "images/icon/diary.png",
-        "pagePath": "pages/diary/diary",
+        "pagePath": "pages/menu/menu",
         "text": "日记"
       },
       {

@@ -226,14 +226,14 @@ Component({
         data: {
           text: e.detail.value.textarea2,
           title_: e.detail.value.textarea1,
-          // date: app.getApp.date.year + "-" + app.getApp.date.month
+          date: app.appData.date.year + "-" + app.appData.date.month
         },
         success: res => {
           // 在返回结果中会包含新创建的记录的 _id
           this.setData({
             text: e.detail.value.textarea2,
             title_: e.detail.value.textarea1,
-            // date:app.getApp.date.year+"-"+app.getApp.date.month
+            date: app.appData.date.year + "-" + app.appData.date.month
           })
           wx.showToast({
             title: '新增记录成功',

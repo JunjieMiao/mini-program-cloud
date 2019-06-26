@@ -13,10 +13,8 @@ App({
     }
 
     this.globalData = {}
-
   },
-
   appData: {
-    date: {year:null,month:null,day:null },
+    date: { year: null, month: null, day: null },
   },
 })

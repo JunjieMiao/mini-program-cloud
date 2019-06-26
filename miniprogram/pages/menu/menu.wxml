@@ -1,0 +1,18 @@
+<!--miniprogram/pages/menu/menu.wxml-->
+<view>
+  <view class= "tool">   
+    <image class='lala' src="/images/icons/add.png" bindtap="addList" data-id="0"/>
+  </view>
+
+
+  <view class="notebook">
+    <view class= 'nod' wx:for="{{lists}}" wx:key="{{index}}">
+      <input data-id="{{index}}" placeholder="笔记本" bindinput='option_con' value="{{item.msg}}"></input>
+      <image class='lala' src="/images/icons/composeHL.png" bindtap="test" data-id="{{index}}"/>
+      <image class='lala' src="/images/icon/user_1.png" bindtap="test2" data-id="{{index}}"/>
+      <image class='lala' src="/images/tabbar/cancel.png" bindtap="delList" data-id="{{index}}"/>
+     </view>
+  </view>
+  
+</view>
+

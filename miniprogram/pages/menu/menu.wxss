@@ -1,0 +1,23 @@
+/* miniprogram/pages/menu/menu.wxss */
+.tool {
+    height: 50%;
+    float: right;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nod {
+  display: flex;
+    height: 120rpx;
+    width: 95%;
+    float: center;
+    align-items: center;
+    border:rgb(21, 42, 100) 3pt solid;
+}
+.lala {
+    height: 100rpx;
+    width: 100rpx;
+    float: right;
+    align-items: right;
+}
