@@ -1,5 +1,6 @@
 // pages/Calendar/Calendar.js
 //打卡日历页面
+var app=getApp();
 
 Page({
 
@@ -12,7 +13,9 @@ Page({
     signUp: [],
     cur_year: 0,
     cur_month: 0,
-    count: ""
+    count: "",
+    cur_day: 0,
+    index:0
   },
 
   /**
@@ -25,6 +28,7 @@ Page({
     const cur_year = date.getFullYear();
     const cur_month = date.getMonth() + 1;
     const weeks_ch = ['日', '一', '二', '三', '四', '五', '六'];
+    const cur_day=cur_day;
     this.calculateEmptyGrids(cur_year, cur_month);
     this.calculateDays(cur_year, cur_month);
     //获取当前用户当前天的完成状态
@@ -32,7 +36,8 @@ Page({
     this.setData({
       cur_year,
       cur_month,
-      weeks_ch
+      weeks_ch,
+      cur_day
     })
 
   },
@@ -211,7 +216,15 @@ Page({
       }
     });
   },
-  editPage: function () {
+  editPage: function (e) {
+    var that=this;
+  
+    var index =  e.currentTarget
+    console.log(index);
+    
+    // this.setData({year:this.data.cur_year,month:this.data.cur_month})
+    app.appData.date = { year: this.data.cur_year, month: this.data.cur_month };
+    console.log(app.appData.date);
     wx.navigateTo({
       url: "../edit/edit"
     })

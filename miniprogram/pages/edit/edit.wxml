@@ -1,4 +1,5 @@
-<view >
+<view class='section1'>
+  <form bindsubmit='bindformsubmit'>
     <textarea
 	 class='input_view'
 	 maxlength='20'
@@ -10,9 +11,9 @@
 	 
 	 style='width:{{width-20}}px;'
 	 data-index='0'
+   name = 'textarea1'
 	/>
-</view>
-<view>
+  
 	<textarea
 	 wx:if="{{isEdit}}"
 	 class='input_view'
@@ -25,6 +26,7 @@
 	 bindblur="_outBlur"
 	 style='width:{{width-20}}px;'
 	 data-index='0'
+   name='textarea2'
 	/>
 	<view wx:if="{{!isEdit}}" bindtap='_focusView' class='input_view2 text-gray' data-index='0'>{{firstCon||"正文"}}</view>
     <view wx:for="{{dataList}}" wx:key="{{index}}">
@@ -50,15 +52,18 @@
         class='input_view2 text-gray' 
         data-index='{{index+1}}'>{{item.info||'正文'}}</view>
     </view>
-</view>
-<view class='add-img'>
+    <view class='add-img'>
   <view class='circle_center_view' style="bottom: 80rpx; right: 240rpx;" bindtap='_addImg'>
       <image class='upload_image' src='../../images/icon/camera.png'/>
   </view>
 </view>
 <view class='save'>
-  <view class='circle_center_view' style="bottom: 80rpx; right: 80rpx;" bindtap='_saveRichText'>
+  <button class='circle_center_view' style="bottom: 80rpx; right: 80rpx;" form-type='submit'>
        <image class='upload_image' src='../../images/icon/save.png'/>
-  </view>
+   </button>
+ 
 </view>
+</form>
+</view>
+
 
