@@ -33,6 +33,7 @@
           <open-data type="userNickName"></open-data>       
         </view>
         <view class="item">{{userInfo.meta}}</view>
+        
       </view>
     </view>
 
@@ -48,3 +49,7 @@
 
     <template is="{{currentTab}}"></template>
 </view>
+
+
+
+

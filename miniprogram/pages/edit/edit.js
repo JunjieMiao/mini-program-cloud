@@ -1,15 +1,18 @@
-// components/rich_text/rich_text.js
+// components/rich_text/rich_text.js 
+var util=require('../../utils/util.js')
 var app = getApp();
+const Db = wx.cloud.database({ env: 'mininote-ledh1' });
+const Cont=Db.collection("diary");
 Component({
-  /**
-   * 组件的属性列表
+  /** 
+   * 组件的属性列表 
    */
   properties: {
     firstCon: {
       type: String,
       value: ''
     },
-    initlist: { // 用于初始化数据，例如，编辑富文本
+    initlist: { // 用于初始化数据，例如，编辑富文本 
       type: Array,
       value: []
     },
@@ -17,16 +20,16 @@ Component({
       type: String,
       value: 'save'
     },
-    max_length: { // 传入图片上限，默认为4
+    max_length: { // 传入图片上限，默认为4 
       type: Number,
       value: 4
     }
   },
-  options: { // 允许接受外部样式，根据个人喜好来处理
+  options: { // 允许接受外部样式，根据个人喜好来处理 
     addGlobalClass: true
   },
-  /**
-   * 组件的初始数据
+  /** 
+   * 组件的初始数据 
    */
   data: {
     dataList: [],
@@ -37,31 +40,57 @@ Component({
     addImgView: {},
     insertIndex: 0,
     width: 375,
-    text:'',
-    title_:""
+    text: '',
+    title_: "",
+    nb_id: 0,
+    nickName: null,
+    time:0
   },
   created() {
+    var Day=util.formatTime(new Date())
+    this.setData({
+      time:Day,
+    })
+    console.log(this.data.time)
+    Db.collection('diary').add({
+      time_:this.data.time
+    })
     let that = this;
     that.data.addImgView = that.selectComponent("#addimg");
-  },
-  attached() { // 当组件挂载到页面时，才会执行初始化
-    let that = this;
-    that.setData({
-      width: app.globalData.systemInfo.windowWidth
+    Db.collection("diary").where({
+      date: app.appData.date.year + "-" + app.appData.date.month + "-" + app.appData.date.day,
+      nb_id: app.appData.nb_id
     })
-    that._initRichText();
+      .get({
+        success(res) {
+          console.log(res.data)
+          that.setData({
+            text: res.data[res.data.length - 1].text,
+            title_: res.data[res.data.length - 1].title_
+          })
+          // that.setData({
+          //   text:res.data.text,
+          //   title_:res.data[15].title_})
+          console.log(that.data.text + that.data.title_)
+        }
+      })
   },
-  /**
-   * 组件的方法列表
+  attached() { // 当组件挂载到页面时，才会执行初始化 
+    let that = this;
+    that._initRichText();
+    
+  },
+  /** 
+   * 组件的方法列表 
    */
   methods: {
-    /**
-     * 内部方法
-     * 初始化富文本方法
+    /** 
+     * 内部方法 
+     * 初始化富文本方法 
      */
     _initRichText() {
       let that = this;
-      if (that.data.initlist && that.data.initlist.length > 0) {// 初始化数据不为空
+      if (that.data.initlist && that.data.initlist.length > 0) {// 初始化数据不为空 
         for (let i = 0; i < that.data.initlist.length; i++) {
           if (i === 0) {
             if (that.data.initlist[i].type === 0) {
@@ -73,7 +102,7 @@ Component({
               })
             }
           } else {
-            if (that.data.initlist[i].type === 0) { // 文字
+            if (that.data.initlist[i].type === 0) { // 文字 
               that.data.dataList[that.data.dataList.length - 1].info = that.data.initlist[i].info;
             } else {
               that.data.dataList.push({
@@ -87,10 +116,15 @@ Component({
           firstCon: that.data.firstCon,
           dataList: that.data.dataList
         })
+        Db.collection("diary").get({
+          success(res) {
+            console.log(res)
+          }
+        })
       }
     },
-    /**
-     * 富文本文字输入监听
+    /** 
+     * 富文本文字输入监听 
      */
     _inputCon(e) {
       let that = this;
@@ -101,8 +135,8 @@ Component({
         that.data.dataList[index - 1].info = e.detail.value;
       }
     },
-    /**
-     * 文本框获取焦点监听
+    /** 
+     * 文本框获取焦点监听 
      */
     _focusView(e) {
       let that = this;
@@ -117,10 +151,10 @@ Component({
         isEdit: true
       })
     },
-    /**
-     * 内部方法
-     * 文本框失去焦点的监听事件
-     * 存储失去焦点的文本框位置，为插入图片作准备
+    /** 
+     * 内部方法 
+     * 文本框失去焦点的监听事件 
+     * 存储失去焦点的文本框位置，为插入图片作准备 
      */
     _outBlur(e) {
       let that = this;
@@ -131,11 +165,11 @@ Component({
         isEdit: false
       })
     },
-    /**
-     * 内部方法
-     * 调用添加图片事件监听
-     * 此处没有做太多处理，下次添加一个上传图片的组件
-     * demo存贮的是本地的临时链接，自己要自己处理哦
+    /** 
+     * 内部方法 
+     * 调用添加图片事件监听 
+     * 此处没有做太多处理，下次添加一个上传图片的组件 
+     * demo存贮的是本地的临时链接，自己要自己处理哦 
      */
     _addImg() {
       let that = this;
@@ -163,15 +197,15 @@ Component({
         })
       }
     },
-    /**
-     * 内部方法
-     * 删除图片
+    /** 
+     * 内部方法 
+     * 删除图片 
      */
     _deletedImg(e) {
       let that = this;
       let index = +e.currentTarget.dataset.index;
       if (that.data.dataList[index].info) {
-        if (index === 0) { // 最后一个
+        if (index === 0) { // 最后一个 
           that.data.firstCon = that.data.firstCon + that.data.dataList[index].info;
         } else {
           that.data.dataList[index - 1].info = that.data.dataList[index - 1].info + that.data.dataList[index].info;
@@ -183,12 +217,12 @@ Component({
         dataList: that.data.dataList
       })
     },
-    /**
-     * 暴露出来的方法
-     * 返回 富文本数据list
+    /** 
+     * 暴露出来的方法 
+     * 返回 富文本数据list 
      */
-    
-  //添加
+
+    //添加 
     res: function (event) {
       const db = wx.cloud.database()
       db.collection('diary').add({
@@ -196,7 +230,7 @@ Component({
           title: event.detail.value.username
         },
         success: res => {
-          // 在返回结果中会包含新创建的记录的 _id
+          // 在返回结果中会包含新创建的记录的 _id 
           this.setData({
             username: e.detail.value.username
           })
@@ -215,26 +249,35 @@ Component({
       })
     },
 
-  
+
     bindformsubmit: function (e) {
       console.log(e.detail.value.textarea2);
       console.log(e.detail.value.textarea1);
-      console.log(app.appData.date.year + "-" + app.appData.date.month);
+      console.log(app.appData.date.year + "-" + app.appData.date.month + "-" + app.appData.date.day);
       wx.cloud.init();
-      const db = wx.cloud.database({ env:'mininote-ledh1'})
+      const db = wx.cloud.database({ env: 'mininote-ledh1' })
       db.collection('diary').add({
         data: {
           text: e.detail.value.textarea2,
           title_: e.detail.value.textarea1,
-          date: app.appData.date.year + "-" + app.appData.date.month
+          date: app.appData.date.year + "-" + app.appData.date.month + "-" + app.appData.date.day,
+          userName: app.appData.userName,
+          nb_id:app.appData.nb_id,
+          time:this.data.time
         },
         success: res => {
-          // 在返回结果中会包含新创建的记录的 _id
+          // 在返回结果中会包含新创建的记录的 _id 
           this.setData({
             text: e.detail.value.textarea2,
             title_: e.detail.value.textarea1,
-            date: app.appData.date.year + "-" + app.appData.date.month
+            date: app.appData.date.year + "-" + app.appData.date.month + "-" + app.appData.date.day,
+            userName:app.appData.userName,
+            nb_id: app.appData.nb_id,
+            time: this.data.time
+
           })
+          app.appData.latest_userName=app.appData.userName
+          app.appData.latest_submit=this.data.time
           wx.showToast({
             title: '新增记录成功',
           })

@@ -4,15 +4,12 @@
 	 class='input_view'
 	 maxlength='20'
 	 auto-height='true'
-
-
-	 placeholder='标题'
 	 focus='{{focusList[0].focus}}'
-	 
+  value='{{title_}}'
 	 style='width:{{width-20}}px;'
 	 data-index='0'
    name = 'textarea1'
-	/>
+	></textarea>
   
 	<textarea
 	 wx:if="{{isEdit}}"
@@ -21,7 +18,7 @@
 	 auto-height='true'
 	 bindinput='_inputCon'
 	 value='{{firstCon}}'
-	 placeholder='正文'
+	 value='{{text}}'
 	 focus='{{focusList[0].focus}}'
 	 bindblur="_outBlur"
 	 style='width:{{width-20}}px;'
@@ -41,7 +38,7 @@
         auto-height='true' 
         bindinput='_inputCon' 
         value='{{item.info}}' 
-        placeholder='正文' 
+        value='{{text}}'
         focus='{{focusList[index+1].focus}}' 
         bindblur="_outBlur" 
         style='width:{{width-20}}px;'

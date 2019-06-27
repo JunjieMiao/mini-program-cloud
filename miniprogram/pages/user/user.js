@@ -1,6 +1,7 @@
 // mine.js
 
 // 自定义标签
+var app = getApp()
 var iconPath = "../../images/icons/"
 var tabs = [
   {

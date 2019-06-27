@@ -1,7 +1,8 @@
 // pages/Calendar/Calendar.js
 //打卡日历页面
-var app=getApp();
-
+var app = getApp();
+const Db = wx.cloud.database({ env: 'mininote-ledh1' });
+const Cont = Db.collection("diary");
 Page({
 
   /**
@@ -15,20 +16,45 @@ Page({
     cur_month: 0,
     count: "",
     cur_day: 0,
-    index:0
+    index:0,
+    userName: '',
+    res_data: [{}],
+    latest_day: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      userName: app.appData.latest_username,
+      latest_day:app.appData.latest_submit
+    })
+    // console.log(app.appData.userName)
+    // Db.collection('diary').where({
+    //   nb_id: app.appData.nb_id
+    // })
+    //   .get({
+    //     success(res) {
+    //       console.log("nb_id=" + app.appData.nb_id)
+    //       console.log(res.data)
+    //       // console.log(res.data[])
+    //       // this.data.username = res.data[res.data.length-1].userName
+    //       console.log(res.data[res.data.length-1].userName)
+    //       console.log(res.data.length)
+    //        this.setData({
+    //    userName: app.appData.latest_username
+    //  })
+    //       console.log(this.username)  
+
+    //     }
+    //   }) 
     this.setData({ objectId: options.objectId });
     //获取当前年月  
     const date = new Date();
     const cur_year = date.getFullYear();
     const cur_month = date.getMonth() + 1;
     const weeks_ch = ['日', '一', '二', '三', '四', '五', '六'];
-    const cur_day=cur_day;
     this.calculateEmptyGrids(cur_year, cur_month);
     this.calculateDays(cur_year, cur_month);
     //获取当前用户当前天的完成状态
@@ -37,15 +63,7 @@ Page({
       cur_year,
       cur_month,
       weeks_ch,
-      cur_day
     })
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
 
   },
 
@@ -220,10 +238,11 @@ Page({
     var that=this;
   
     var index =  e.currentTarget
-    console.log(index);
-    
+    console.log(this.data.days[e.currentTarget.dataset.index].date);
+    // console.log(days[e.currentTarget.dataset.index])
+  
     // this.setData({year:this.data.cur_year,month:this.data.cur_month})
-    app.appData.date = { year: this.data.cur_year, month: this.data.cur_month };
+    app.appData.date = { year: this.data.cur_year, month: this.data.cur_month, day: this.data.days[e.currentTarget.dataset.index].date };
     console.log(app.appData.date);
     wx.navigateTo({
       url: "../edit/edit"

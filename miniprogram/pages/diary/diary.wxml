@@ -17,22 +17,22 @@
   <view class="week">
     <view wx:for="{{weeks_ch}}" wx:key="{{index}}" data-idx="{{index}}">{{item}}</view>
   </view>
-  <view class='days'>
+  <view class='days'  >
     <!-- 列 -->
-    <view class="columns" wx:for="{{days.length/7}}" wx:for-index="i" wx:key="i" >
+    <view class="columns" wx:for="{{days.length/7}}" wx:for-index="i" wx:key="i"  >
       <view wx:for="{{days}}" wx:for-index="j" wx:key="j">
         <!-- 行 -->
         <view class="rows" wx:if="{{j/7 == i}}">
-          <view class="rows" wx:for="{{7}}" wx:for-index="k" wx:key="k"  bindtap='editPage' >
+          <view class="rows" wx:for="{{7}}" wx:for-index="k" wx:key="k">
             <!-- 每个月份的空的单元格 -->
             <view class='cell' wx:if="{{days[j+k].date == null}}">
               <text decode="{{true}}">&nbsp;&nbsp;</text>
             </view>
             <!-- 每个月份的有数字的单元格 -->
-            <view class='cell' wx:else data-index='index'>
+            <view class='cell' wx:else data-index='{{j+k}}'  bindtap='editPage'>
               <!-- 当前日期已写过日记 -->
               <view wx:if="{{days[j+k].isSign == true}}" style='background-color:#83C75D' class='cell'>
-                <text >{{days[j+k].date}}</text>
+                <text>{{days[j+k].date}}</text>
               </view>
               <!-- 当前日期未写过日记 -->
               <view wx:else>
@@ -46,10 +46,10 @@
   </view>
   <!-- 累计数量 -->
   <view class='count'>
-    <text>上一次由cxk于</text>
+    <text>上一次由{{userName}}于</text>
     <view class='daynumber'>
-    <text class='number'>{{count}}</text> 
-    <text class='diary_number'>修改</text>
+    <text>{{latest_day}}</text> 
+    <text >修改</text>
     </view>    
   </view>
 </view>
